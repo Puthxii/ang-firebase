@@ -13,14 +13,14 @@
             <li>
                 <a class="nav-link" [routerLink]="['/']">home</a>
             </li>
-            <li>
+            <li *ngIf="!auth.authenticated">
                 <a class="nav-link" [routerLink]="['/login']">login</a>
             </li>
-            <li>
+            <li *ngIf="auth.authenticated">
                 <a class="nav-link" [routerLink]="['/profile']">profile</a>
             </li>
-            <li>
-                <a class="nav-link">logout</a>
+            <li *ngIf="auth.authenticated">
+                <a class="nav-link" (click)=”this.auth.signOut>logout</a>
             </li>
         </ul>
     </div>
