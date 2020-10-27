@@ -20,7 +20,7 @@
                 <a class="nav-link" [routerLink]="['/profile']">profile</a>
             </li>
             <li *ngIf="auth.authenticated">
-                <a class="nav-link" (click)=”this.auth.signOut>logout</a>
+                <a class="nav-link" (click)="this.auth.signOut()">logout</a>
             </li>
         </ul>
     </div>

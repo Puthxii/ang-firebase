@@ -5,7 +5,7 @@
                 login
             </div>
             <div class="card-body">
-                <form>
+                <form [formGroup]="loginForm" (ngSubmit)="login()">
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Email</label>
                         <div class="col-sm-9">

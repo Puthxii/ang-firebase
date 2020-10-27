@@ -33,5 +33,3 @@ export class SignupComponent implements OnInit {
     this.auth.emailSignUp(this.userForm.value.emailSignup, this.userForm.value.passwordSignup)
   }
 }
-
-
