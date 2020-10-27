@@ -84,7 +84,7 @@ export class AuthService {
   // tslint:disable-next-line: typedef
   emailSignUp(email: string, password: string) {
     return this.afAuth.auth.createUserWithEmailAndPassword(email, password)
-      .then((user) => {
+      .then((user: any) => {
         this.authState = user;
         this.updateUserData();
         this.router.navigate(['/']);
@@ -102,11 +102,14 @@ export class AuthService {
       .catch(error => console.log(error));
   }
   // tslint:disable-next-line: typedef
-  resetPassword(email: string) {
+  async resetPassword(email: string) {
     const fbAuth = firebase.auth();
-    return fbAuth.sendPasswordResetEmail(email)
-      .then(() => console.log('email sent'))
-      .catch((error) => console.log(error));
+    try {
+      await fbAuth.sendPasswordResetEmail(email);
+      return console.log('email sent');
+    } catch (error) {
+      return console.log(error);
+    }
   }
   // tslint:disable-next-line: typedef
   getCurrentLoggedIn() {
@@ -129,5 +132,7 @@ export class AuthService {
     };
     userRef.update(data)
       .catch(error => console.log(error));
+    // tslint:disable-next-line: align
+    console.log('2');
   }
 }

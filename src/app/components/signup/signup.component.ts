@@ -13,6 +13,7 @@ export class SignupComponent implements OnInit {
   emailSignup: string;
   passwordSignup: string;
   constructor(private fb: FormBuilder, private auth: AuthService) { }
+  // tslint:disable-next-line: typedef
   ngOnInit() {
     this.buildForm();
   }
