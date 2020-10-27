@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from "../../services/auth.service";
+import { AuthService } from '../../services/auth.service';
 import { ReactiveFormsModule, FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+
   loginForm: FormGroup;
   constructor(
     private fb: FormBuilder,
@@ -17,6 +18,7 @@ export class LoginComponent implements OnInit {
   ) {
     auth.getCurrentLoggedIn();
   }
+  // tslint:disable-next-line: typedef
   ngOnInit() {
     this.buildForm();
   }

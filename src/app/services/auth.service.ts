@@ -5,6 +5,7 @@ import { AngularFireDatabase, AngularFireObject } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { firebase } from '@firebase/app';
 import '@firebase/auth';
+import { GithubAuthProvider, GoogleAuthProvider, FacebookAuthProvider, TwitterAuthProvider } from '@firebase/auth-types';
 @Injectable()
 export class AuthService {
   authState: any = null;
@@ -62,24 +63,24 @@ export class AuthService {
     return this.socialSignIn(provider);
   }
   // tslint:disable-next-line: typedef
-  private socialSignIn(provider) {
+  private socialSignIn(provider: GithubAuthProvider | GoogleAuthProvider | FacebookAuthProvider | TwitterAuthProvider) {
     return this.afAuth.auth.signInWithPopup(provider)
-      .then((credential) => {
+      .then((credential: { user: any; }) => {
         console.log(credential.user);
         this.authState = credential.user;
         this.updateUserData();
         this.router.navigate(['/']);
       })
-      .catch(error => console.log(error));
+      .catch((error: any) => console.log(error));
   }
   // tslint:disable-next-line: typedef
   anonymousLogin() {
     return this.afAuth.auth.signInAnonymously()
-      .then((user) => {
+      .then((user: any) => {
         this.authState = user;
         this.router.navigate(['/']);
       })
-      .catch(error => console.log(error));
+      .catch((error: any) => console.log(error));
   }
   // tslint:disable-next-line: typedef
   emailSignUp(email: string, password: string) {
@@ -89,17 +90,17 @@ export class AuthService {
         this.updateUserData();
         this.router.navigate(['/']);
       })
-      .catch(error => console.log(error));
+      .catch((error: any) => console.log(error));
   }
   // tslint:disable-next-line: typedef
   emailLogin(email: string, password: string) {
     return this.afAuth.auth.signInWithEmailAndPassword(email, password)
-      .then((user) => {
+      .then((user: any) => {
         this.authState = user;
         this.updateUserData();
         this.router.navigate(['/']);
       })
-      .catch(error => console.log(error));
+      .catch((error: any) => console.log(error));
   }
   // tslint:disable-next-line: typedef
   async resetPassword(email: string) {
@@ -132,7 +133,5 @@ export class AuthService {
     };
     userRef.update(data)
       .catch(error => console.log(error));
-    // tslint:disable-next-line: align
-    console.log('2');
   }
 }

@@ -31,6 +31,6 @@ export class SignupComponent implements OnInit {
     });
   }
   signup(): void {
-    this.auth.emailSignUp(this.userForm.value.emailSignup, this.userForm.value.passwordSignup)
+    this.auth.emailSignUp(this.userForm.value.emailSignup, this.userForm.value.passwordSignup);
   }
 }
