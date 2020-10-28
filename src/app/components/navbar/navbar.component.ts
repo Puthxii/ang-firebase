@@ -9,7 +9,7 @@ import { AuthService } from '../../services/auth.service';
 export class NavbarComponent implements OnInit {
   constructor(
     private router: Router,
-    private auth: AuthService
+    public auth: AuthService
   ) { }
   // tslint:disable-next-line: typedef
   ngOnInit() {
