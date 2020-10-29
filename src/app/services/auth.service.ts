@@ -15,7 +15,9 @@ export class AuthService {
     private db: AngularFireDatabase,
     private router: Router) {
     this.afAuth.authState.subscribe((auth) => {
+      // console.log(`002${auth.uid}`);
       this.authState = auth;
+      // console.log(`003${this.authState.uid}`);
     });
   }
   get authenticated(): boolean {
@@ -28,6 +30,7 @@ export class AuthService {
     return this.afAuth.authState;
   }
   get currentUserId(): string {
+    console.log('id01' + this.authenticated + this.authState.uid);
     return this.authenticated ? this.authState.uid : '';
   }
   get currentUserAnonymous(): boolean {
@@ -63,44 +66,50 @@ export class AuthService {
     return this.socialSignIn(provider);
   }
   // tslint:disable-next-line: typedef
-  private socialSignIn(provider: GithubAuthProvider | GoogleAuthProvider | FacebookAuthProvider | TwitterAuthProvider) {
-    return this.afAuth.auth.signInWithPopup(provider)
-      .then((credential: { user: any; }) => {
-        console.log(credential.user);
-        this.authState = credential.user;
-        this.updateUserData();
-        this.router.navigate(['/']);
-      })
-      .catch((error: any) => console.log(error));
+  private async socialSignIn(provider: GithubAuthProvider | GoogleAuthProvider | FacebookAuthProvider | TwitterAuthProvider) {
+    try {
+      const credential = await this.afAuth.auth.signInWithPopup(provider);
+      console.log(credential.user);
+      this.authState = credential.user;
+      this.updateUserData();
+      this.router.navigate(['/']);
+    } catch (error) {
+      return console.log(error);
+    }
   }
   // tslint:disable-next-line: typedef
-  anonymousLogin() {
-    return this.afAuth.auth.signInAnonymously()
-      .then((user: any) => {
-        this.authState = user;
-        this.router.navigate(['/']);
-      })
-      .catch((error: any) => console.log(error));
+  async anonymousLogin() {
+    try {
+      const user = await this.afAuth.auth.signInAnonymously();
+      this.authState = user;
+      this.router.navigate(['/']);
+    } catch (error) {
+      return console.log(error);
+    }
   }
   // tslint:disable-next-line: typedef
-  emailSignUp(email: string, password: string) {
-    return this.afAuth.auth.createUserWithEmailAndPassword(email, password)
-      .then((user: any) => {
-        this.authState = user;
-        this.updateUserData();
-        this.router.navigate(['/']);
-      })
-      .catch((error: any) => console.log(error));
+  async emailSignUp(email: string, password: string) {
+    try {
+      const user = this.afAuth.auth.createUserWithEmailAndPassword(email, password);
+      console.log('user ' + user);
+      this.authState = user;
+      console.log('authState ' + this.authState);
+      this.updateUserData();
+      this.router.navigate(['/']);
+    } catch (error) {
+      return console.log(error);
+    }
   }
   // tslint:disable-next-line: typedef
-  emailLogin(email: string, password: string) {
-    return this.afAuth.auth.signInWithEmailAndPassword(email, password)
-      .then((user: any) => {
-        this.authState = user;
-        this.updateUserData();
-        this.router.navigate(['/']);
-      })
-      .catch((error: any) => console.log(error));
+  async emailLogin(email: string, password: string) {
+    try {
+      const user = await this.afAuth.auth.signInWithEmailAndPassword(email, password);
+      this.authState = user;
+      this.updateUserData();
+      this.router.navigate(['/']);
+    } catch (error) {
+      return console.log(error);
+    }
   }
   // tslint:disable-next-line: typedef
   async resetPassword(email: string) {
