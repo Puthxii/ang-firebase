@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import { ReactiveFormsModule, FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,6 +11,8 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
+  email: string;
+  password: string;
   constructor(
     private fb: FormBuilder,
     private auth: AuthService,
@@ -38,5 +40,4 @@ export class LoginComponent implements OnInit {
   login(): void {
     this.auth.emailLogin(this.loginForm.value.email, this.loginForm.value.password);
   }
-
 }
