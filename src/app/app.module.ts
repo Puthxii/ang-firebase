@@ -10,6 +10,8 @@ import { LoginComponent } from './components/login/login.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { SignupComponent } from './components/signup/signup.component';
+import { OrdersComponent } from './components/orders/orders.component';
+import { OrderListComponent } from './components/order-list/order-list.component';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
@@ -17,13 +19,15 @@ import { AngularFireDatabase, AngularFireObject } from 'angularfire2/database';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AuthService } from './services/auth.service';
 import { AuthGuard } from './guards/auth.guard';
+import { OrdersService } from './shared/orders.service';
 
 export const router: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
-  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] }
-]
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
+  { path: 'orders', component: OrdersComponent },
+];
 
 export const firebaseConfig = {
   apiKey: 'AIzaSyCRpAiTvNcZoWhHMvD0i4Pz8qwx-579Azs',
@@ -43,7 +47,9 @@ export const firebaseConfig = {
     LoginComponent,
     NavbarComponent,
     ProfileComponent,
-    SignupComponent
+    SignupComponent,
+    OrdersComponent,
+    OrderListComponent
   ],
   imports: [
     FormsModule,
@@ -54,7 +60,7 @@ export const firebaseConfig = {
     AngularFireAuthModule,
     AngularFireModule.initializeApp(firebaseConfig)
   ],
-  providers: [AuthService, AngularFireDatabase, AuthGuard],
+  providers: [AuthService, AngularFireDatabase, AuthGuard, OrdersService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

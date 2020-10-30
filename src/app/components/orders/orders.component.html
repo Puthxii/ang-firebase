@@ -1,0 +1,29 @@
+<div>
+  <div>
+    <form [formGroup]="this.ordersService.form" (ngSubmit)="onSubmit()">
+      <div class="form-row">
+        <div class="col">
+          <input type="text" class="form-control" placeholder="Order Number" formControlName="orderNumber">
+        </div>
+        <div class="col">
+          <input type="text" class="form-control" placeholder="Customer Name" formControlName="customerName">
+        </div>
+      </div>
+      <div>
+        <button class="btn btn-outline-success col-4" *ngFor="let coffee of coffees" (click)="addCoffee(coffee)">
+          {{coffee}}
+        </button>
+      </div>
+
+      <ul class="collection">
+        <li *ngFor="let coffee of coffeeOrder">
+          <span class="col-11"> {{ coffee }} </span>
+          <a class="col-1" (click)="removeCoffee(coffee)">x</a>
+        </li>
+      </ul>
+      <button class="btn btn-success col-3" (click)="onSubmit()">
+        Submit
+      </button>
+    </form>
+  </div>
+</div>
