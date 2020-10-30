@@ -15,9 +15,7 @@ export class AuthService {
     private db: AngularFireDatabase,
     private router: Router) {
     this.afAuth.authState.subscribe((auth) => {
-      // console.log(`002${auth.uid}`);
       this.authState = auth;
-      // console.log(`003${this.authState.uid}`);
     });
   }
   get authenticated(): boolean {
@@ -30,8 +28,7 @@ export class AuthService {
     return this.afAuth.authState;
   }
   get currentUserId(): string {
-    console.log('id01' + this.authenticated + this.authState.uid);
-    return this.authenticated ? this.authState.uid : '';
+    return this.authenticated ? this.authState.user.uid : '';
   }
   get currentUserAnonymous(): boolean {
     return this.authenticated ? this.authState.isAnonymous : false;
@@ -90,10 +87,8 @@ export class AuthService {
   // tslint:disable-next-line: typedef
   async emailSignUp(email: string, password: string) {
     try {
-      const user = this.afAuth.auth.createUserWithEmailAndPassword(email, password);
-      console.log('user ' + user);
+      const user = await this.afAuth.auth.createUserWithEmailAndPassword(email, password);
       this.authState = user;
-      console.log('authState ' + this.authState);
       this.updateUserData();
       this.router.navigate(['/']);
     } catch (error) {
@@ -137,8 +132,8 @@ export class AuthService {
     const path = `users/${this.currentUserId}`; // Endpoint on firebase
     const userRef: AngularFireObject<any> = this.db.object(path);
     const data = {
-      email: this.authState.email,
-      name: this.authState.displayName
+      email: this.authState.user.email,
+      name: this.authState.user.displayName
     };
     userRef.update(data)
       .catch(error => console.log(error));
