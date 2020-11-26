@@ -16,10 +16,14 @@ export class OrdersComponent implements OnInit {
   // tslint:disable-next-line: typedef
   ngOnInit() {
   }
-  addCoffee = coffee => this.coffeeOrder.push(coffee);
-  removeCoffee = coffee => {
+  addCoffee = (coffee: any) => {
+    this.coffeeOrder.push(coffee);
+  }
+  removeCoffee = (coffee: any) => {
     const index = this.coffeeOrder.indexOf(coffee);
-    if (index > -1) { this.coffeeOrder.splice(index, 1); }
+    if (index > -1) {
+      this.coffeeOrder.splice(index, 1);
+    }
   }
   // tslint:disable-next-line: typedef
   onSubmit() {
