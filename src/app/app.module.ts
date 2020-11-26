@@ -42,7 +42,8 @@ export const router: Routes = [
     AppRoutingModule,
     RouterModule.forRoot(router),
     AngularFireAuthModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig)
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFirestoreModule
   ],
   providers: [AuthService, AngularFireDatabase, AuthGuard],
   bootstrap: [AppComponent]

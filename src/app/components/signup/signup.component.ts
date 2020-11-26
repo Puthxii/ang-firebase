@@ -15,7 +15,9 @@ export class SignupComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private auth: AuthService
-  ) { }
+  ) {
+    auth.getCurrentLoggedIn();
+  }
   // tslint:disable-next-line: typedef
   ngOnInit() {
     this.buildForm();
