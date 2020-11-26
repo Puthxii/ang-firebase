@@ -6,6 +6,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { firebase } from '@firebase/app';
 import '@firebase/auth';
 import { GithubAuthProvider, GoogleAuthProvider, FacebookAuthProvider, TwitterAuthProvider } from '@firebase/auth-types';
+import { AngularFirestore } from 'angularfire2/firestore';
 @Injectable()
 export class AuthService {
   authState: any = null;
@@ -13,7 +14,8 @@ export class AuthService {
   constructor(
     private afAuth: AngularFireAuth,
     private db: AngularFireDatabase,
-    private router: Router) {
+    private router: Router,
+    private afs: AngularFirestore) {
     this.afAuth.authState.subscribe((auth) => {
       this.authState = auth;
     });
@@ -41,6 +43,12 @@ export class AuthService {
     } else {
       return this.authState.displayName || 'User without a Name';
     }
+  }
+  // tslint:disable-next-line: typedef
+  addUserData() {
+    this.afs.collection('users').add({
+      email: this.authState.user.email
+    });
   }
   // tslint:disable-next-line: typedef
   githubLogin() {
@@ -90,6 +98,7 @@ export class AuthService {
       const user = await this.afAuth.auth.createUserWithEmailAndPassword(email, password);
       this.authState = user;
       this.updateUserData();
+      this.addUserData();
       this.router.navigate(['/']);
     } catch (error) {
       return console.log(error);
