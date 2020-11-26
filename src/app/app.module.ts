@@ -11,6 +11,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { SignupComponent } from './components/signup/signup.component';
 
+import { environment } from '../environments/environment';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireDatabase, AngularFireObject } from 'angularfire2/database';
@@ -24,17 +25,6 @@ export const router: Routes = [
   { path: 'signup', component: SignupComponent },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] }
 ]
-
-export const firebaseConfig = {
-  apiKey: 'AIzaSyCRpAiTvNcZoWhHMvD0i4Pz8qwx-579Azs',
-  authDomain: 'angular-test-df9ae.firebaseapp.com',
-  databaseURL: 'https://angular-test-df9ae.firebaseio.com',
-  projectId: 'angular-test-df9ae',
-  storageBucket: 'angular-test-df9ae.appspot.com',
-  messagingSenderId: '840450488804',
-  appId: '1:840450488804:web:5397cded205e35fcaaaff1',
-  measurementId: 'G-CFJH5RJMXK'
-};
 
 @NgModule({
   declarations: [
@@ -52,7 +42,7 @@ export const firebaseConfig = {
     AppRoutingModule,
     RouterModule.forRoot(router),
     AngularFireAuthModule,
-    AngularFireModule.initializeApp(firebaseConfig)
+    AngularFireModule.initializeApp(environment.firebaseConfig)
   ],
   providers: [AuthService, AngularFireDatabase, AuthGuard],
   bootstrap: [AppComponent]
