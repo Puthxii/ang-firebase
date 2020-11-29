@@ -11,8 +11,6 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
-  email: string;
-  password: string;
   constructor(
     private fb: FormBuilder,
     private auth: AuthService,
@@ -31,13 +29,27 @@ export class LoginComponent implements OnInit {
         Validators.email
       ]),
       password: new FormControl('', [
-        Validators.pattern('^ (?=.* [0–9])(?=.* [a - zA - Z])([a - zA - Z0–9] +)$'),
+        Validators.required,
+        Validators.pattern('^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{6,}$'),
         Validators.minLength(6),
         Validators.maxLength(25)
       ])
     });
   }
+  // tslint:disable-next-line: typedef
+  get email() {
+    return this.loginForm.get('email');
+  }
+  // tslint:disable-next-line: typedef
+  get password() {
+    return this.loginForm.get('password');
+  }
+
   login(): void {
-    this.auth.emailLogin(this.loginForm.value.email, this.loginForm.value.password);
+    if (this.loginForm.invalid) {
+      alert('wddfqwf');
+    } else {
+      this.auth.emailLogin(this.loginForm.value.email, this.loginForm.value.password);
+    }
   }
 }
