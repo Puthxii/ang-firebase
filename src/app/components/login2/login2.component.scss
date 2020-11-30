@@ -1,0 +1,17 @@
+.card-header{
+    border: none;
+}
+.card-body{
+    border:1px yellow solid;
+    text-align:center;
+    display: block;
+    text-decoration: none;
+    width:100%;
+}
+.img{
+    width: 50px;
+}
+.header.content > img,
+    .header.content > p {
+        display: inline-block;
+    }

@@ -18,12 +18,14 @@ import { AngularFireDatabase, AngularFireObject } from 'angularfire2/database';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AuthService } from './services/auth.service';
 import { AuthGuard } from './guards/auth.guard';
+import { Login2Component } from './components/login2/login2.component';
 
 export const router: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
-  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] }
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
+  { path: 'login2', component: Login2Component },
 ]
 
 @NgModule({
@@ -33,7 +35,8 @@ export const router: Routes = [
     LoginComponent,
     NavbarComponent,
     ProfileComponent,
-    SignupComponent
+    SignupComponent,
+    Login2Component
   ],
   imports: [
     FormsModule,

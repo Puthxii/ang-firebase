@@ -46,10 +46,6 @@ export class LoginComponent implements OnInit {
   }
 
   login(): void {
-    if (this.loginForm.invalid) {
-      alert('wddfqwf');
-    } else {
-      this.auth.emailLogin(this.loginForm.value.email, this.loginForm.value.password);
-    }
+    this.auth.emailLogin(this.loginForm.value.email, this.loginForm.value.password);
   }
 }
