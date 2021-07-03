@@ -96,6 +96,7 @@ export class AuthService {
       const user = await this.afAuth.auth.createUserWithEmailAndPassword(email, password);
       this.authState = user;
       this.addUserData();
+      this.updateUserData();
       this.router.navigate(['/']);
     } catch (error) {
       return console.log(error);

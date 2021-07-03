@@ -24,7 +24,7 @@ export class Login2Component implements OnInit {
     });
   }
   // tslint:disable-next-line: typedef
-  loin() {
+  login() {
     return;
   }
 
